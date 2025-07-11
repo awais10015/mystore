@@ -82,20 +82,25 @@ const Navbar = ({ bg = "transparent" }) => {
           <Link className="hover:text-[#C19A83] hover:scale-115" href="/help">
             HELP
           </Link>
-          {/* <Link className="hover:text-[#C19A83] hover:scale-115" href="/login">
-            LOG IN
-          </Link> */}
           <SignedOut>
+          <Link className="hover:text-[#C19A83] hover:scale-115" href="/sign-in">
+            SIGN IN
+          </Link>
+          <Link className="hover:text-[#C19A83] hover:scale-115" href="/sign-up">
+            SIGN-UP
+          </Link>
+          </SignedOut>
+          {/* <SignedOut>
             <SignInButton />
             <SignUpButton>
               <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
                 Sign Up
               </button>
             </SignUpButton>
-          </SignedOut>
+          </SignedOut>*/}
           <SignedIn>
             <UserButton />
-          </SignedIn>
+          </SignedIn> 
           <Link href="/cart">
             <CiShoppingCart className="hover:scale-115 h-8 w-8" />
           </Link>

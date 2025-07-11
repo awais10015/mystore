@@ -9,7 +9,7 @@ const Footer = () => {
         
        
         <div className="flex-shrink-0">
-          <Image src="/logo.png" alt="logo" height={100} width={140} />
+          <Image priority src="/logo.png" alt="logo" height={100} width={140} />
         </div>
 
        

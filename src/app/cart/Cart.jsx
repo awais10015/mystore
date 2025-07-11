@@ -12,7 +12,6 @@ const Cart = () => {
   useGSAP(() => {
     gsap.from([".cart", ".cartItems"], {
       y: 600,
-      // scale:0.7,
       opacity: 0,
       duration: 0.7,
       delay: 0.5,

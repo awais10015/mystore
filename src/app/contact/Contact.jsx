@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Navbar from "../components/Navbar";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -6,18 +6,15 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-// import { useCart } from "@/app/context/CartContext";
 
 const Contact = () => {
   useGSAP(() => {
-      gsap.from([".contact"], {
-        y: 600,
-        // scale:0.7,
-        opacity: 0,
-        duration: 0.7,
-        // delay: 1,
-      });
-    }, []);
+    gsap.from([".contact"], {
+      y: 600,
+      opacity: 0,
+      duration: 0.7,
+    });
+  }, []);
   return (
     <>
       <Navbar />
@@ -53,11 +50,11 @@ const Contact = () => {
 
         <div className="w-full mt-20">
           <p className="text-gray-500 m-5 text-sm sm:text-base text-center">
-          MESSAGE US
-        </p>
-        <h1 className="text-4xl m-5 sm:text-5xl md:text-6xl font-black text-center">
-          GET IN TOUCH
-        </h1>
+            MESSAGE US
+          </p>
+          <h1 className="text-4xl m-5 sm:text-5xl md:text-6xl font-black text-center">
+            GET IN TOUCH
+          </h1>
           <form action="" className="mt-15 flex flex-col w-full gap-4">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex flex-col flex-1">
@@ -110,9 +107,11 @@ const Contact = () => {
                 placeholder="Write your message here..."
               ></textarea>
             </div>
-            <button className="bg-black text-white h-12 text-lg w-25">
-              SEND
-            </button>
+            <div className="flex items-center w-full justify-center">
+              <button className="bg-black text-white h-12 text-lg w-25">
+                SEND
+              </button>
+            </div>
           </form>
         </div>
       </div>

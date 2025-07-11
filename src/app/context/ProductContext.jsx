@@ -1,37 +1,46 @@
 "use client";
-import React, { createContext, useContext, useState, useMemo } from "react";
-import {productsData} from "@/app/context/data/products"; 
+
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [maxPrice, setMaxPrice] = useState(null); 
+  const [maxPrice, setMaxPrice] = useState(null);
 
-  const filteredProducts = useMemo(() => {
-    return productsData.filter((product) => {
-      const categoryMatch = selectedCategory
-        ? product.category.includes(selectedCategory)
-        : true;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch("/api/products");
+      const data = await res.json();
+      setProducts(data);
+      setFilteredProducts(data);
+    };
+    fetchProducts();
+  }, []);
 
-      const priceMatch = maxPrice
-        ? parseInt(product.price) <= maxPrice
-        : true;
+  useEffect(() => {
+    let filtered = [...products];
 
-      return categoryMatch && priceMatch;
-    });
-  }, [selectedCategory, maxPrice]);
+    if (selectedCategory) {
+      filtered = filtered.filter((product) =>
+        product.category.includes(selectedCategory)
+      );
+    }
+
+    if (maxPrice) {
+      filtered = filtered.filter(
+        (product) => parseFloat(product.price) <= maxPrice
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [selectedCategory, maxPrice, products]);
 
   return (
     <ProductContext.Provider
-      value={{
-        allProducts: productsData,
-        filteredProducts,
-        selectedCategory,
-        setSelectedCategory,
-        maxPrice,
-        setMaxPrice,
-      }}
+      value={{ products, filteredProducts, setSelectedCategory, setMaxPrice }}
     >
       {children}
     </ProductContext.Provider>

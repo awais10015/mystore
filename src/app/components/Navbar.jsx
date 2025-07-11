@@ -17,9 +17,12 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
-const Navbar = ({ bg = "transparent" }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+import { useUser } from "@clerk/nextjs";
 
+const Navbar = ({ bg = "transparent" }) => {
+  const { user } = useUser();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const userEmail = user?.emailAddresses?.[0]?.emailAddress;
   useGSAP(() => {
     gsap.from([".Navbar"], {
       y: 0,
@@ -42,53 +45,70 @@ const Navbar = ({ bg = "transparent" }) => {
           </Link>
         </div>
 
-        <div className="absolute sm:hidden lg:flex md:hidden left-1/2 transform -translate-x-1/2 hidden  gap-4 text-black font-medium">
+        <div className="absolute transition-all ease-in-out sm:hidden lg:flex md:hidden left-1/2 transform -translate-x-1/2 hidden  gap-4 text-black font-medium">
           <Link
-            className="hover:text-[#C19A83] hover:scale-115"
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
             href="/shopall"
           >
             SHOP ALL
           </Link>
-          <Link className="hover:text-[#C19A83] hover:scale-115" href="/decor">
+          <Link
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
+            href="/decor"
+          >
             DECOR
           </Link>
-          <Link className="hover:text-[#C19A83] hover:scale-115" href="/office">
+          <Link
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
+            href="/office"
+          >
             OFFICE
           </Link>
           <Link
-            className="hover:text-[#C19A83] hover:scale-115"
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
             href="/livingroom"
           >
             LIVING ROOM
           </Link>
           <Link
-            className="hover:text-[#C19A83] hover:scale-115"
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
             href="/bedroom"
           >
             BEDROOM
           </Link>
         </div>
 
-        <div className="hidden lg:flex items-center gap-4 text-black font-medium z-10">
-          <Link className="hover:text-[#C19A83] hover:scale-115" href="/story">
+        <div className="hidden lg:flex transition-all ease-in-out items-center gap-4 text-black font-medium z-10">
+          <Link
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
+            href="/story"
+          >
             STORY
           </Link>
           <Link
-            className="hover:text-[#C19A83] hover:scale-115"
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
             href="/contact"
           >
             CONTACT
           </Link>
-          <Link className="hover:text-[#C19A83] hover:scale-115" href="/help">
+          <Link
+            className="hover:text-[#C19A83] transition-all ease-in-out hover:scale-115"
+            href="/help"
+          >
             HELP
           </Link>
           <SignedOut>
-          <Link className="hover:text-[#C19A83] hover:scale-115" href="/sign-in">
-            SIGN IN
-          </Link>
-          <Link className="hover:text-[#C19A83] hover:scale-115" href="/sign-up">
-            SIGN-UP
-          </Link>
+            <Link
+              className="hover:text-blue-600 transition-all ease-in-out hover:scale-115"
+              href="/sign-in"
+            >
+              SIGN IN
+            </Link>
+            <Link href="/sign-up">
+              <button className="bg-[#6c47ff] hover:scale-110 transition-all ease-in-out text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                Sign Up
+              </button>
+            </Link>
           </SignedOut>
           {/* <SignedOut>
             <SignInButton />
@@ -98,12 +118,19 @@ const Navbar = ({ bg = "transparent" }) => {
               </button>
             </SignUpButton>
           </SignedOut>*/}
-          <SignedIn>
-            <UserButton />
-          </SignedIn> 
           <Link href="/cart">
-            <CiShoppingCart className="hover:scale-115 h-8 w-8" />
+            <CiShoppingCart className="hover:scale-115 transition-all ease-in-out h-8 w-8" />
           </Link>
+          <SignedIn>
+            {userEmail === "awais10015@gmail.com" && (
+              <Link href="/admin">
+                <button className="bg-[#6c47ff] hover:bg-[#593be0] hover:scale-105 transition-transform duration-200 text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-5 shadow-md">
+                  Admin Panel
+                </button>
+              </Link>
+            )}
+            <UserButton />
+          </SignedIn>
         </div>
 
         <div className="lg:hidden z-10">

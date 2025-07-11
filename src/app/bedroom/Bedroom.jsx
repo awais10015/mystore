@@ -10,10 +10,8 @@ const Bedroom = ({ product }) => {
   useGSAP(() => {
     gsap.from([".bedroom"], {
       y: 600,
-      // scale:0.7,
       opacity: 0,
       duration: 0.7,
-      // delay: 1,
     });
   }, []);
 

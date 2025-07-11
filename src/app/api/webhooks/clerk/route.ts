@@ -27,14 +27,14 @@ export async function POST(req: NextRequest) {
         photo: image_url || "",
       };
 
-      await createUser(user); // 👈 call your DB logic here
+      await createUser(user); 
     }
 
-    console.log(`✅ Webhook received: ID ${id}, type ${eventType}`);
+    console.log(` Webhook received: ID ${id}, type ${eventType}`);
     return new Response("Webhook received", { status: 200 });
 
   } catch (err) {
-    console.error("❌ Error verifying webhook:", err);
+    console.error(" Error verifying webhook:", err);
     return new Response("Error verifying webhook", { status: 400 });
   }
 }

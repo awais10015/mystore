@@ -5,7 +5,7 @@ import gsap from "gsap";
 import ImageSlider from "@/app/components/ImageSlider";
 import Navbar from "@/app/components/Navbar";
 import ShopByCategory from "@/app/components/ShopByCategory";
-
+import Link from "next/link";
 import Whyus from "@/app/components/Whyus";
 
 const Page = () => {
@@ -30,9 +30,12 @@ const Page = () => {
         <h5 className="two mt-5 text-black w-full text-xl sm:text-3xl font-black">
           Hundreds of styles available
         </h5>
+        <Link href="/shopall">
         <button className=" three mt-5 w-32 h-12 bg-black text-white font-medium rounded hover:cursor-pointer">
           SHOP NOW
         </button>
+        </Link>
+        
       </div>
 
       <div className="z-10 relative bg-white px-4 py-10">

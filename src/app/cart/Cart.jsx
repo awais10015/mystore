@@ -4,8 +4,8 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SignedIn, useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import {  useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const Cart = () => {

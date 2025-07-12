@@ -9,7 +9,7 @@ import gsap from "gsap";
 import { CiShoppingCart } from "react-icons/ci";
 
 import {
-  ClerkProvider,
+  
   SignInButton,
   SignUpButton,
   SignedIn,
@@ -110,14 +110,7 @@ const Navbar = ({ bg = "transparent" }) => {
               </button>
             </Link>
           </SignedOut>
-          {/* <SignedOut>
-            <SignInButton />
-            <SignUpButton>
-              <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                Sign Up
-              </button>
-            </SignUpButton>
-          </SignedOut>*/}
+         
           <Link href="/cart">
             <CiShoppingCart className="hover:scale-115 transition-all ease-in-out h-8 w-8" />
           </Link>
@@ -150,7 +143,7 @@ const Navbar = ({ bg = "transparent" }) => {
           <Link href="/story">STORY</Link>
           <Link href="/contact">CONTACT</Link>
           <Link href="/help">HELP</Link>
-          {/* <Link href="/login">Log In</Link> */}
+          
           <SignedOut>
             <SignInButton />
             <SignUpButton>

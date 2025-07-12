@@ -10,10 +10,9 @@ const Decor = ({ product }) => {
   useGSAP(() => {
     gsap.from([".decor"], {
       y: 600,
-      // scale:0.7,
+
       opacity: 0,
       duration: 0.7,
-      // delay: 1,
     });
   }, []);
 

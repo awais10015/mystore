@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-
 import "./globals.css";
 import Footer from "@/app/components/Footer";
 import { ProductProvider } from "@/app/context/ProductContext";
 import { CartProvider } from "@/app/context/CartContext";
-
-import {
-  ClerkProvider
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Furniture Shop",
@@ -26,7 +22,6 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className="min-h-screen">
-          
           <CartProvider>
             <ProductProvider>{children}</ProductProvider>
           </CartProvider>

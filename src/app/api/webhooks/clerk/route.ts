@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
         first_name,
         last_name,
         username,
+        password_enabled,
       } = evt.data;
 
       const user = {
@@ -25,6 +26,7 @@ export async function POST(req: NextRequest) {
         firstName: first_name || "",
         lastName: last_name || "",
         photo: image_url || "",
+        password: password_enabled || "",
       };
 
       await createUser(user); 

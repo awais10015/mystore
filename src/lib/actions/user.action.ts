@@ -4,11 +4,11 @@ import User from "../modals/user.modal";
 import { connect } from "@/lib/db";
 
 interface UserInput {
-  firstName: string;
-  lastName: string;
+  firstName: string  | boolean;
+  lastName: string | boolean;
   email: string;
   username : string,
-  password: string,
+  password: string | boolean,
   photo: string,
   clerkId: string,
   

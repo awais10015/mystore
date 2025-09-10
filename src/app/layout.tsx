@@ -4,6 +4,7 @@ import Footer from "@/app/components/Footer";
 import { ProductProvider } from "@/app/context/ProductContext";
 import { CartProvider } from "@/app/context/CartContext";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Furniture Shop",
@@ -23,7 +24,10 @@ export default function RootLayout({
       <html lang="en">
         <body className="min-h-screen">
           <CartProvider>
-            <ProductProvider>{children}</ProductProvider>
+            <ProductProvider>
+              {children}
+              <Toaster />
+            </ProductProvider>
           </CartProvider>
           <div className="z-10 relative bg-white">
             <Footer />

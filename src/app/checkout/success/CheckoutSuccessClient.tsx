@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import { useCart } from "@/app/context/CartContext";
+import { normalizeProductImage } from "@/lib/product-image";
 
 type OrderItem = {
   productId: number;
@@ -147,14 +148,16 @@ export default function CheckoutSuccessClient() {
             <div>
               <h2 className="mb-3 text-lg font-semibold">Items purchased</h2>
               <ul className="space-y-3">
-                {order.items.map((item) => (
+                {order.items.map((item) => {
+                  const imageSrc = normalizeProductImage(item.image);
+                  return (
                   <li
                     key={`${item.productId}-${item.name}`}
                     className="flex gap-4 rounded-xl border border-gray-100 p-3"
                   >
-                    {item.image ? (
+                    {imageSrc ? (
                       <Image
-                        src={item.image}
+                        src={imageSrc}
                         alt={item.name}
                         width={64}
                         height={64}
@@ -168,7 +171,8 @@ export default function CheckoutSuccessClient() {
                       </p>
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
               <p className="mt-4 text-right text-lg font-bold">
                 Total: ${order.total.toFixed(2)}

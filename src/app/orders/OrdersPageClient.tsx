@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
+import { normalizeProductImage } from "@/lib/product-image";
 
 type OrderSummary = {
   id: string;
@@ -102,11 +103,13 @@ export default function OrdersPageClient() {
                 {open && (
                   <div className="border-t border-gray-100 bg-[#F9FAFA] px-4 py-4">
                     <ul className="space-y-3">
-                      {order.items.map((item) => (
+                      {order.items.map((item) => {
+                        const imageSrc = normalizeProductImage(item.image);
+                        return (
                         <li key={`${order.id}-${item.productId}`} className="flex gap-3">
-                          {item.image ? (
+                          {imageSrc ? (
                             <Image
-                              src={item.image}
+                              src={imageSrc}
                               alt={item.name}
                               width={56}
                               height={56}
@@ -120,7 +123,8 @@ export default function OrdersPageClient() {
                             </p>
                           </div>
                         </li>
-                      ))}
+                        );
+                      })}
                     </ul>
                   </div>
                 )}

@@ -8,6 +8,7 @@ import {
   getDeliveryDays,
   getStripe,
 } from "@/lib/stripe";
+import { normalizeProductImage } from "@/lib/product-image";
 
 export const runtime = "nodejs";
 
@@ -56,7 +57,7 @@ async function buildOrderItemsFromSession(sessionId: string) {
       const metaId = product.metadata?.productId;
       if (metaId) productId = Number(metaId);
       if (product.name) name = product.name;
-      if (product.images?.[0]) image = product.images[0];
+      if (product.images?.[0]) image = normalizeProductImage(product.images[0]);
     }
 
     items.push({

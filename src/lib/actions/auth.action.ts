@@ -52,11 +52,18 @@ export async function signup(formData: FormData): Promise<SignupResult> {
       adminEmail && email === adminEmail ? ("admin" as const) : ("user" as const);
 
     const hashed = await hash(password, 12);
+    const baseUsername =
+      email
+        .split("@")[0]
+        .replace(/[^a-z0-9._-]/gi, "")
+        .slice(0, 24) || "user";
+    const username = `${baseUsername}-${Date.now().toString(36)}`;
 
     await User.create({
       firstName,
       lastName,
       email,
+      username,
       password: hashed,
       role,
     });

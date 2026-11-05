@@ -25,6 +25,8 @@ const UserSchema = new Schema(
     username: {
       type: String,
       trim: true,
+      unique: true,
+      sparse: true,
     },
     photo: {
       type: String,

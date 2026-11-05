@@ -9,18 +9,36 @@ export const ProductProvider = ({ children }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch("/api/products");
-      const data = await res.json();
-      setProducts(data);
-      setFilteredProducts(data);
+      try {
+        const res = await fetch("/api/products");
+        const data = await res.json();
+        const list = res.ok && Array.isArray(data) ? data : [];
+        if (!res.ok) {
+          console.error("Failed to load products:", data);
+        }
+        setProducts(list);
+        setFilteredProducts(list);
+      } catch (err) {
+        console.error("Failed to load products:", err);
+        setProducts([]);
+        setFilteredProducts([]);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchProducts();
   }, []);
 
   useEffect(() => {
+    if (!Array.isArray(products)) {
+      setFilteredProducts([]);
+      return;
+    }
+
     let filtered = [...products];
 
     if (selectedCategory) {
@@ -40,7 +58,13 @@ export const ProductProvider = ({ children }) => {
 
   return (
     <ProductContext.Provider
-      value={{ products, filteredProducts, setSelectedCategory, setMaxPrice }}
+      value={{
+        products,
+        filteredProducts,
+        setSelectedCategory,
+        setMaxPrice,
+        loading,
+      }}
     >
       {children}
     </ProductContext.Provider>

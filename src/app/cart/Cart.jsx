@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import {  useUser } from "@clerk/nextjs";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -20,17 +20,17 @@ const Cart = () => {
 
   const { cart, removeFromCart, clearCart, total } = useCart();
 
-  const { isSignedIn } = useUser();
+  const { status } = useSession();
   const router = useRouter();
-  
 
   useEffect(() => {
-    if (!isSignedIn) {
-      router.push("./sign-in");
-      return;
+    if (status === "unauthenticated") {
+      router.push("/sign-in");
     }
-  }, [isSignedIn]);
-  if (!isSignedIn) return null;
+  }, [status, router]);
+
+  if (status === "loading" || status === "unauthenticated") return null;
+
   return (
     <>
       <Navbar />
@@ -83,12 +83,21 @@ const Cart = () => {
               <p>
                 Total: <span className="font-bold text-2xl">${total}</span>
               </p>
-              <button
-                onClick={clearCart}
-                className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 active:scale-95 transition-all duration-200"
-              >
-                Clear Cart
-              </button>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <button
+                  type="button"
+                  onClick={() => router.push("/checkout")}
+                  className="rounded-full bg-black px-8 py-2.5 text-white text-base font-medium hover:bg-gray-900 active:scale-95 transition-all duration-200"
+                >
+                  Proceed to checkout
+                </button>
+                <button
+                  onClick={clearCart}
+                  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 active:scale-95 transition-all duration-200"
+                >
+                  Clear Cart
+                </button>
+              </div>
             </div>
           </>
         )}

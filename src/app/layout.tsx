@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+
 import Footer from "@/app/components/Footer";
 import { ProductProvider } from "@/app/context/ProductContext";
 import { CartProvider } from "@/app/context/CartContext";
-import { ClerkProvider } from "@clerk/nextjs";
+import AuthSessionProvider from "@/components/providers/SessionProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
@@ -20,20 +22,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className="min-h-screen">
+    <html lang="en">
+      <body className="min-h-screen">
+        <NextTopLoader color="#000000" height={3} showSpinner={false} />
+        <AuthSessionProvider>
           <CartProvider>
             <ProductProvider>
               {children}
               <Toaster />
             </ProductProvider>
           </CartProvider>
-          <div className="z-10 relative bg-white">
+          <div className="relative z-10 bg-white">
             <Footer />
           </div>
-        </body>
-      </html>
-    </ClerkProvider>
+        </AuthSessionProvider>
+      </body>
+    </html>
   );
 }

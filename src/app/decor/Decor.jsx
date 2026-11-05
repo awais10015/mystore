@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useCart } from "@/app/context/CartContext";
+import Link from "next/link";
+import PageLoader from "../components/PageLoader";
 
 const Decor = ({ product }) => {
   useGSAP(() => {
@@ -17,12 +19,21 @@ const Decor = ({ product }) => {
   }, []);
 
   const { addToCart } = useCart();
-  const { filteredProducts, setSelectedCategory } = useProductContext();
+  const { filteredProducts, setSelectedCategory, loading } = useProductContext();
 
   useEffect(() => {
     setSelectedCategory("Decor");
     return () => setSelectedCategory(null);
   }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <PageLoader>Loading products…</PageLoader>
+      </>
+    );
+  }
 
   return (
     <>
@@ -35,14 +46,16 @@ const Decor = ({ product }) => {
               key={product.id}
               className="bg-[#F1F3F2] p-4 rounded-xl shadow-md transition-transform duration-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-80 object-cover rounded-md transition-transform duration-300 ease-in-out hover:scale-105"
-              />
-              <h2 className="text-xl mt-6 font-semibold text-gray-800">
-                {product.name}
-              </h2>
+              <Link href={`/product/${product.id}`} className="block">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-80 object-contain rounded-md transition-transform duration-300 ease-in-out hover:scale-105"
+                />
+                <h2 className="text-xl mt-6 font-semibold text-gray-800">
+                  {product.name}
+                </h2>
+              </Link>
               <p className="text-gray-600 text-lg">${product.price}</p>
 
               <button

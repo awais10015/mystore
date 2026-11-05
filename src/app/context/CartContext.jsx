@@ -8,6 +8,8 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
+    let addedNew = false;
+
     setCart((prev) => {
       const existing = prev.find((p) => p.id === product.id);
       if (existing) {
@@ -15,9 +17,13 @@ export const CartProvider = ({ children }) => {
           p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
         );
       }
-      toast.success("Product added to Cart");
+      addedNew = true;
       return [...prev, { ...product, quantity: 1 }];
     });
+
+    if (addedNew) {
+      toast.success("Product added to Cart");
+    }
   };
 
   const removeFromCart = (id) => {

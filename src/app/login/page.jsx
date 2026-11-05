@@ -1,11 +1,5 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-const page = () => {
-  return (
-    <>
-    <Navbar bg="white"/>
-    </>
-  )
-}
+import { redirect } from "next/navigation";
 
-export default page
+export default function LoginPage() {
+  redirect("/sign-in");
+}

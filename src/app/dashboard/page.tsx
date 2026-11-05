@@ -1,10 +1,5 @@
-// app/dashboard/page.tsx
-import { auth } from "@clerk/nextjs/server"
+import DashboardClient from "./DashboardClient";
 
-export default async function Dashboard() {
-  const { userId } = await auth();
-
-  if (!userId) return <div>Please sign in</div>;
-
-  return <div>Welcome to your dashboard!</div>;
+export default function Dashboard() {
+  return <DashboardClient />;
 }
